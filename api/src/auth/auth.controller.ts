@@ -1,11 +1,10 @@
 import { Controller, Get, Post, Body, UseGuards, Res, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDTO, RegisterDTO } from './dto/auth.dto';
-import { atGuard } from 'src/common/guard/';
-import { User } from 'src/common/decorator/userInfo.decorator';
-import { Public } from 'src/common/decorator/public.decorator';
+import { atGuard } from '../common/guard/';
+import { User } from '../common/decorator/userInfo.decorator';
+import { Public } from '../common/decorator/public.decorator';
 import { Response, Request } from 'express'
-import { PassThrough } from 'stream';
 
 
 @Controller('auth')

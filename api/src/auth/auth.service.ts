@@ -1,5 +1,5 @@
 import { ConflictException, Injectable, ForbiddenException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { ResponseUser } from './dto/auth.dto';
 import { typeUser } from '@prisma/client';
 import * as argon from 'argon2'

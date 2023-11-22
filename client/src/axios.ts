@@ -2,7 +2,9 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const instance = axios.create({
-    baseURL: 'http://localhost:3000/',
+    // baseURL: 'http://localhost:3000/',
+    baseURL: 'https://car-manager-backend-ai3i.onrender.com/',
+
 });
 // instance.interceptors.request.use((config) => {
 //     const accessToken = useSelector((state: any) => state?.auth?.login?.currentUser?.access_token)
