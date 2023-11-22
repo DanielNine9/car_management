@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { Admin, Public, Seller, User } from 'src/common/decorator/';
+import { Admin, Public, Seller, User } from '../common/decorator/';
 import { ProductDTO, UpdateProductDTO } from './dto';
-import { RoleGuard } from 'src/common/guard/role';
+import { RoleGuard } from '../common/guard/role';
 
 @Controller('product')
 export class ProductController {

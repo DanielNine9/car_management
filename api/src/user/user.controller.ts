@@ -11,11 +11,11 @@ import {
   Global,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { Admin, AllUser } from 'src/common/decorator/role.decorator';
-import { RoleGuard } from 'src/common/guard/role';
+import { Admin, AllUser } from '../common/decorator/role.decorator';
+import { RoleGuard } from '../common/guard/role';
 import { UserUpdateDTO } from './dto/user.dto';
-import { User } from 'src/common/decorator/userInfo.decorator';
-import { Public } from 'src/common/decorator';
+import { User } from '../common/decorator/userInfo.decorator';
+import { Public } from '../common/decorator';
 
 @Controller('user')
 export class UserController {

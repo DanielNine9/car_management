@@ -4,10 +4,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Product } from './type';
-import { User } from 'src/common/decorator';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { ResponseProduct } from './dto';
-import { typeProduct, typeUser } from '@prisma/client';
+import { typeUser } from '@prisma/client';
 
 @Injectable()
 export class ProductService {

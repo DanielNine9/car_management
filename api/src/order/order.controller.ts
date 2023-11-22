@@ -1,7 +1,6 @@
 import { Controller, Post, Param, Body, ParseIntPipe, Get, Put, Delete } from '@nestjs/common';
 import { OrderService } from './order.service';
-import { User } from 'src/common/decorator';
-import { AuthService } from 'src/auth/auth.service';
+import { User } from '../common/decorator';
 
 @Controller('order')
 export class OrderController {
