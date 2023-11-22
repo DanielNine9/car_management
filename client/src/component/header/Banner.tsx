@@ -44,7 +44,7 @@ const Banner = () => {
                 </div>
               ))}
             </Slide> :
-            <img src="https://cdn.mos.cms.futurecdn.net/vGfTJ5NJHVMjyBX7xWjddW.jpeg" alt="" className='h-[700px] w-full' />
+            <img src="https://www.ford.com.vn/content/ford/vn/vi_vn/site-wide-content/billboard-carousels/homepage-carousel-new/jcr:content/par/billboard_670946416__1155109222/imageComponent/image.imgs.full.high.jpg" alt="" className='h-[700px] w-full' />
         }
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="absolute inset-0 flex items-center justify-center text-white text-center z-10">
