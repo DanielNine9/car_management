@@ -5,8 +5,8 @@ import { loginUser } from '../../redux/apiRequest';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
-  const [email, setEmail] = useState<string>('admin@gmail.com');
-  const [password, setPassword] = useState<string>('1234');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('');
