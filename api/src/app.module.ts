@@ -7,9 +7,17 @@ import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
-  imports: [AuthModule, PrismaModule, ConfigModule.forRoot({isGlobal : true}), UserModule, ProductModule, OrderModule],
+  imports: [AuthModule, PrismaModule, ConfigModule.forRoot({isGlobal : true}),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "../..", 'api', 'dist'),
+      exclude: ['api/*']
+
+    })
+    ,UserModule, ProductModule, OrderModule],
   providers: [
     {
       provide: APP_GUARD,
