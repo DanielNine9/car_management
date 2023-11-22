@@ -105,10 +105,20 @@ function UserManagement() {
         }
     }
 
+
     return (
         <div className="p-4">
             <Link to="/">Home</Link>
             <h2 className="text-2xl font-semibold mb-4">User Management</h2>
+            <div className="flex gap-4">
+                <button className='text-xl text-black hover:text-white bg-green-400 px-2 py-1'>
+               Users
+                    </button>
+                <button className='text-xl text-black hover:text-white bg-green-400 px-2 py-1'>
+                <Link to="/my-sellers">Sellers</Link>
+                    
+                    </button>
+            </div>
             <table className="w-full border-collapse">
                 <thead>
                     <tr>

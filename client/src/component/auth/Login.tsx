@@ -33,8 +33,8 @@ const Login = () => {
     loginUser({ email, password }, dispatch).then((res: any) => {
       if (res?.message) {
         setLoading(false)
-        console.log(res)
-        setError("Username or password do not correct")
+        console.log(res.response.data.message)
+        setError(res.response.data.message)
       } else {
         navigate(prePath || '/')
       }

@@ -70,7 +70,7 @@ const ProductDetail: React.FC = () => {
                     </div>
                     <div className="col-span-1">
                         <h1 className="text-2xl font-semibold mb-2">{productData.name}</h1>
-                        <p className="text-gray-600 mb-1">Type: {productData.type}</p>
+                        <p className="text-gray-600 mb-1">Type: {productData.type} seats</p>
                         <p className="text-gray-600 mb-1">Local: {productData.local}</p>
                         <p className="text-xl font-semibold mb-4">${productData.price}</p>
                         <p className="text-gray-600 mb-4">{productData.source}</p>

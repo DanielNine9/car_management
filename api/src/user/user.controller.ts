@@ -8,6 +8,7 @@ import {
   UseGuards,
   ParseIntPipe,
   Body,
+  Global,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Admin, AllUser } from 'src/common/decorator/role.decorator';
@@ -34,7 +35,8 @@ export class UserController {
 
   @Get('/:userId')
   @UseGuards(RoleGuard)
-  @Admin()
+  // @Admin()
+  @Public()
   getUser(@Param('userId', ParseIntPipe) param) {
     return this.userService.getUser(param);
   }

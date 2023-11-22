@@ -25,6 +25,7 @@ import MyProductDelete from "./component/product/MyProductDelete";
 import Profile from "./component/auth/Profile";
 import HotProductsPage from "./component/main/TopHot";
 import News from "./component/main/News";
+import MySeller from "./component/admin/MySeller";
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <div className="App">
@@ -62,6 +63,7 @@ function App() {
         </Route>
 
         <Route path="/user-management" element={<UserManagement />} />
+        <Route path="/my-sellers" element={<MySeller />} />
         <Route path="/create-product" element={<CreateProduct />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

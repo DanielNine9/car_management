@@ -28,7 +28,7 @@ export const logout = async (accessToken: string, dispatch: Dispatch, navigate: 
             }
         })
         dispatch(loginSuccess(null))
-        navigate("/")
+        navigate("/login")
     } catch (err) {
         dispatch(loginFailed())
     }
@@ -65,6 +65,19 @@ export const getUsers = async (accessToken: string, navigate: NavigateFunction) 
     }
 }
 
+
+export const getSellers = async (accessToken: string, navigate: NavigateFunction) => {
+    try {
+        const res = await axios.get("/user/my-seller", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        return res
+    } catch (err) {
+        navigate("/forbidden")
+    }
+}
 
 
 enum ProductType {

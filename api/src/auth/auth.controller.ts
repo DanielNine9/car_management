@@ -15,6 +15,7 @@ export class AuthController {
     @Public()
     @Post("login")
     login(@Body() loginDTO: LoginDTO, @Res({ passthrough: true }) res: Response) {
+        console.log(loginDTO)
         return this.authService.login(loginDTO, res);
     }
 
