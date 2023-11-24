@@ -3,6 +3,7 @@ import Loading from '../Loading';
 import { Product } from './type';
 import { formatDate, getBestSellingProduct } from '../../redux/apiRequest';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const NewsPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -13,6 +14,9 @@ const NewsPage = () => {
     const navigate = useNavigate()
 
     const [user, setUser] = useState({})
+    const isVietnamese = useSelector(
+        (state: any) => state?.auth?.translate?.isVietnamese
+      );
 
     const getProducts = async () => {
         setTimeout(async () => {
@@ -63,7 +67,7 @@ const NewsPage = () => {
 
     return (
         <div className="container mx-auto mt-8">
-            <h1 className="text-3xl font-semibold mb-8">Trang tin tức</h1>
+            <h1 className="text-3xl font-semibold mb-8">Sản phẩm bán chạy</h1>
             {hotProd.map((prod, index) => (
                 <div
                     key={prod.id}
@@ -76,16 +80,16 @@ const NewsPage = () => {
                     <div className="w-full p-4">
                         <div className="h-[96%] overflow-y-scroll">
                             <h2 className="text-xl font-semibold">{prod.name}</h2>
-                            <p className="text-gray-600">Price: {prod.price}</p>
-                            <p className="text-gray-600">Local: {prod.local}</p>
-                            <p className="text-gray-600">Source: {prod.source}</p>
-                            <p className="text-gray-600">Order count: {prod.orderCount}</p>
-                            <p className="text-gray-600">Type: {prod.type}</p>
-                            <p className="text-gray-600">Description: {prod.desc}</p>
-                            <p className="text-gray-500">Created at: {formatDate(prod.created_at)}</p>
+                            <p className="text-gray-600">{isVietnamese ? "Giá": "Price"}: {prod.price}</p>
+                            <p className="text-gray-600">{isVietnamese ? "Khu vực": "Local"}: {prod.local}</p>
+                            <p className="text-gray-600">{isVietnamese ? "Nguồn gốc": "Source"}: {prod.source}</p>
+                            <p className="text-gray-600">{isVietnamese ? "Số lượng người đặt": "Order count"} : {prod.orderCount}</p>
+                            <p className="text-gray-600">{isVietnamese ? "Loại xe": "Type"}: {prod.type}</p>
+                            <p className="text-gray-600">{isVietnamese ? "Mô tả": "Description"}: {prod.desc}</p>
+                            <p className="text-gray-500">{isVietnamese ? "Được đăng vào lúc: ": "Created at"} : {formatDate(prod.created_at)}</p>
                         </div>
                         <button className='text-center w-full bg-green-600 p-1 mt-[-2px] hover:bg-green-400' onClick={() => handleMoveIn(prod.id)}>
-                            Move in
+                            {isVietnamese ? "Đi đến ngay": "Move in"} 
                         </button>
 
                     </div>

@@ -42,6 +42,10 @@ const ViewDetail: React.FC = () => {
   const currentUser = useSelector(
     (state: any) => state.auth.login?.currentUser
   );
+  const isVietnamese = useSelector(
+    (state: any) => state?.auth?.translate?.isVietnamese
+  );
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [productData, setProductData] = useState<Partial<Product>>({});
@@ -89,7 +93,7 @@ const ViewDetail: React.FC = () => {
                   className="w-full rounded-lg h-full object-contain shadow-md"
                 />
                 <div className="">
-                  Created on date:{" "}
+                  {isVietnamese ? "Được tạo" : "Created"} {isVietnamese ? "vào ngày": "on date"}:{" "}
                   {productData.created_at &&
                     formatDate(productData.created_at as string)}
                 </div>
@@ -97,7 +101,7 @@ const ViewDetail: React.FC = () => {
                   {(productData.discount as number) * 100}%
                 </div>
               </div>
-              <p className="text-gray-600 mt-4">Seller:</p>
+              <p className="text-gray-600 mt-4">{isVietnamese ? "Người bán": "Seller"}:</p>
               <div className="">
                 <div className="flex items-end gap-4">
                   <img
@@ -134,10 +138,10 @@ const ViewDetail: React.FC = () => {
                 <h1 className="text-3xl font-semibold mb-2">
                   {productData.name}
                 </h1>
-                <p className="text-gray-600 mb-1">Type: {productData.type}</p>
-                <p className="text-gray-600 mb-1">Local: {productData.local}</p>
+                <p className="text-gray-600 mb-1">{isVietnamese ? "Loại xe" : "Type"}: {productData.type}</p>
+                <p className="text-gray-600 mb-1">{isVietnamese ? "Khu vực" : "Local"}: {productData.local}</p>
                 <p className="text-2xl font-semibold mb-4">
-                  Price:{" "}
+                  {isVietnamese ? "" : "Price"}:{" "}
                   <del className="text-[16px] text-gray-400">
                     ${productData.price}
                   </del>{" "}
@@ -149,7 +153,7 @@ const ViewDetail: React.FC = () => {
                 </p>
                 <p className="text-gray-600 mb-4">{productData.source}</p>
                 <p className="text-gray-600 mb-4">
-                  Order count: {productData.orderCount}
+                  {isVietnamese ? "Số lượng mua hàng" : "Order count"}: {productData.orderCount}
                 </p>
               </div>
 
@@ -158,7 +162,7 @@ const ViewDetail: React.FC = () => {
                   className="mt-6 bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-full "
                   onClick={handleAddToCart}
                 >
-                  Add to Cart
+                  {isVietnamese ? "Thêm vào giỏ hàng" : "Add to Cart"} 
                 </button>
               </div>
             </div>

@@ -80,12 +80,11 @@ export class OrderService {
     // }
     async myCart(user) {
         const myCart = await this.prismaService.$queryRaw`
-            SELECT "a"."id" as "orderId","quantity", "b".*
+            SELECT "a"."id" as "orderId","quantity", "b".*, "a"."success"
             FROM "orders" "a"
             INNER JOIN "products" "b" ON "a"."productId" = "b"."id" 
             WHERE "a"."userId" = ${user.id}
         `;
-
         return myCart;
     }
 
@@ -126,6 +125,7 @@ export class OrderService {
             FROM "orders" "a"
             INNER JOIN "products" "b" ON "a"."productId" = "b"."id"
             WHERE "a"."userId" = ${user.id}
+            AND "a"."success" = false
         `;
         const totalAmount = orders.reduce((total, order) => {
             const orderTotal = order.quantity * order.price;
@@ -137,4 +137,37 @@ export class OrderService {
     rate() {
         return "rate"
     }
+
+    async updateSuccess(sellerId, userId, productId) {
+        const emps: any[] = await this.prismaService.$queryRaw`
+          UPDATE "orders"
+          SET "success" = true
+          WHERE "userId" = ${userId}
+            AND EXISTS (
+              SELECT 1
+              FROM "products"
+              WHERE "products"."id" = ${productId}
+                AND "products"."sellerId" = ${sellerId}
+            );
+        `;
+      return "success";
+
+      }
+
+      async deleteCartBySeller(sellerId, userId, productId) {
+        const emps: any[] = await this.prismaService.$queryRaw`
+          DELETE FROM "orders"
+          WHERE "userId" = ${userId}
+            AND EXISTS (
+              SELECT 1
+              FROM "products"
+              WHERE "products"."id" = ${productId}
+                AND "products"."sellerId" = ${sellerId}
+            );
+        `;
+      return "success";
+
+      }
+
+      
 }

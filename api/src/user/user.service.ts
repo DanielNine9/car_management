@@ -1,3 +1,5 @@
+import { IsNotEmpty } from 'class-validator';
+import { Seller } from './../common/decorator/role.decorator';
 import {
   ForbiddenException,
   Injectable,
@@ -94,4 +96,66 @@ WHERE "role" = 'SELLER'
 
     return emps;
   }
+
+  async getCustomer(sellerId): Promise<any> {
+    const emps: any[] = await this.prismaService.$queryRaw`
+      SELECT SUM("orders"."quantity") as "quantity", "users"."username", "users"."id", "products"."name", "products"."imageURL", "orders"."success", "products"."id" as "productId"
+      FROM "orders" 
+      INNER JOIN "users" ON "orders"."userId" = "users"."id"
+      INNER JOIN "products" ON "products"."id" = "orders"."productId"
+      WHERE "products"."sellerId" = ${sellerId}
+      GROUP BY "orders"."quantity", "users"."username", "users"."id", "products"."name", "products"."imageURL", "orders"."success","products"."id"
+      
+    `;
+    if (emps.length != 0) {
+      return emps?.map((emp) => ({
+        quantity: emp.quantity.toString(),
+        username: emp.username,
+        id: emp.id,
+        name: emp.name,
+        imageURL: emp.imageURL,
+        success: emp.success,
+        productId: emp.productId,
+      }));
+    }
+
+    return emps;
+  }
+
+  async getCustomerAdmin(): Promise<any> {
+    const emps: any[] = await this.prismaService.$queryRaw`
+      SELECT SUM("orders"."quantity") as "quantity", "users"."username", "users"."id", "products"."name", "products"."imageURL", "orders"."success", "products"."id" as "productId"
+      FROM "orders" 
+      INNER JOIN "users" ON "orders"."userId" = "users"."id"
+      INNER JOIN "products" ON "products"."id" = "orders"."productId"
+      GROUP BY "orders"."quantity", "users"."username", "users"."id", "products"."name", "products"."imageURL", "orders"."success","products"."id"
+      
+    `;
+    if (emps.length != 0) {
+      return emps?.map((emp) => ({
+        quantity: emp.quantity.toString(),
+        username: emp.username,
+        id: emp.id,
+        name: emp.name,
+        imageURL: emp.imageURL,
+        success: emp.success,
+        orderId: emp.orderId,
+        productId: emp.productId,
+      }));
+    }
+
+    return emps;
+  }
+
+  // async getCustomer(sellerId): Promise<any> {
+  //   const emps = await this.prismaService.$queryRaw`
+  //     SELECT DISTINCT *
+  //     FROM "orders"
+  //     INNER JOIN "users" ON "orders"."userId" = "users"."id"
+  //     INNER JOIN "products" ON "products"."id" = "orders"."productId"
+  //     WHERE "products"."sellerId" = ${sellerId}
+
+  //   `;
+  //   return emps
+  // }
 }

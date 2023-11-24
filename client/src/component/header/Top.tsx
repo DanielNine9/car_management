@@ -28,6 +28,10 @@ const Top = () => {
     setUser(null);
   };
 
+  const isVietnamese = useSelector(
+    (state: any) => state?.auth?.translate?.isVietnamese
+  );
+
   return (
     <div className="flex justify-between py-4">
       <div className="flex items-center gap-2 hover:cursor-pointer">
@@ -64,7 +68,7 @@ const Top = () => {
                   to="/my-profile"
                   className="block text-gray-700 hover:text-blue-600 hover:underline"
                 >
-                  My Profile
+                  {isVietnamese ? "Hồ sơ của tôi" : "My Profile"}
                 </Link>
                 <hr className="my-2 border-t border-gray-300" />
 
@@ -74,19 +78,25 @@ const Top = () => {
                       to="/user-management"
                       className="block text-gray-700 hover:text-blue-600 hover:underline"
                     >
-                      User Management
+                      {isVietnamese ? "Quản lý người dùng" : "User Management"}
                     </Link>
                     <Link
                       to="create-product"
                       className="block text-gray-700 hover:text-blue-600 hover:underline"
                     >
-                      Create Product
+                      {isVietnamese ? "Tạo sản phẩm" : "Create Product"}
                     </Link>
                     <Link
                       to="myProduct"
                       className="block text-gray-700 hover:text-blue-600 hover:underline"
                     >
-                      My Products
+                      {isVietnamese ? "Sản phẩm của tôi" : "My Products"}
+                    </Link>
+                    <Link
+                      to="product-sold"
+                      className="block text-gray-700 hover:text-blue-600 hover:underline"
+                    >
+                      {isVietnamese ? "Sản phẩm đã bán" : "Product Sold"}
                     </Link>
                   </>
                 ) : user?.role == "SELLER" ? (
@@ -95,13 +105,19 @@ const Top = () => {
                       to="create-product"
                       className="block text-gray-700 hover:text-blue-600 hover:underline"
                     >
-                      Create Product
+                      {isVietnamese ? "Tạo sản phẩm" : "Create Product"}
                     </Link>
                     <Link
                       to="myProduct"
                       className="block text-gray-700 hover:text-blue-600 hover:underline"
                     >
-                      My Products
+                      {isVietnamese ? "Sản phẩm của tôi" : "My Products"}
+                    </Link>
+                    <Link
+                      to="product-sold"
+                      className="block text-gray-700 hover:text-blue-600 hover:underline"
+                    >
+                      {isVietnamese ? "Sản phẩm đã bán" : "Product Sold"}
                     </Link>
                   </>
                 ) : null}
@@ -111,7 +127,7 @@ const Top = () => {
                     onClick={handleLogout}
                     className="text-sm font-medium text-gray-700 hover:text-black cursor-pointer"
                   >
-                    Logout
+                    {isVietnamese ? "Đăng xuất" : "Logout"}
                   </button>
                 </div>
               </div>
@@ -123,14 +139,14 @@ const Top = () => {
               to={"/register"}
               className="p-2 px-4 text-sm font-medium border rounded border-gray-300 hover:bg-gray-200 transition hover:text-black"
             >
-              Sign up
+              {isVietnamese ? "Đăng ký" : "Sign up"}
             </Link>
             <Link
               to={"/login"}
               state={location.pathname}
               className="bg-[#333] p-2 px-4 text-sm font-medium text-white rounded hover:bg-gray-800 transition"
             >
-              Sign in
+             {isVietnamese ? "Đăng nhập" : "Sign in"} 
             </Link>
           </>
         )}
@@ -139,7 +155,7 @@ const Top = () => {
           to="/cart"
           className="flex items-center gap-2 p-2 px-4 bg-red-400 rounded hover:bg-red-500 transition hover:cursor-pointer"
         >
-          Cart
+          {isVietnamese ? "Giỏ hàng" : "Cart"}
           <FaShopify />
         </Link>
       </div>

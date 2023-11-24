@@ -348,6 +348,35 @@ export const myCartAPI = async (accessToken: string) => {
     }
 }
 
+export const myCustomer = async (accessToken: string) => {
+    try {
+        const res = axios.get(`/user/my-customer`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        console.log(res)
+        return res
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const myCustomerAdmin = async (accessToken: string) => {
+    try {
+        const res = axios.get(`/user/my-customer-admin`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        console.log(res)
+        return res
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+
 export const updateMyCartAPI = async (accessToken: string, cartId: number, quantity: number | string) => {
     try {
         const res = axios.put(`/order/${cartId}`, { quantity }, {
@@ -394,3 +423,34 @@ export function formatDate(dateString: string) {
     // Sử dụng date-fns để định dạng ngày tháng năm
     return format(date, 'dd/MM/yyyy'); // Định dạng 'dd/MM/yyyy' cho ngày/tháng/năm
 }
+
+export function successOrder(accessToken: String, userId: number, productId: number) {
+    console.log(accessToken)
+    try {
+        const res = axios.get(`/order/success/${userId}/${productId}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        return res
+    } catch (e) {
+        console.log(e)
+    }
+
+}
+
+export function deleteOrderBySeller(accessToken: String, userId: number, productId: number) {
+    console.log(accessToken)
+    try {
+        const res = axios.get(`/order/delete/${userId}/${productId}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        return res
+    } catch (e) {
+        console.log(e)
+    }
+
+}
+

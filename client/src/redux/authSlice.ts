@@ -11,7 +11,11 @@ const authSlice = createSlice({
         register: {
             isFetching: false,
             isError: false 
-        }
+        },
+        translate: {
+            isVietnamese: false
+        },
+      
     },
     reducers: {
         loginStart: (state) => {
@@ -36,11 +40,14 @@ const authSlice = createSlice({
         registerError: (state) => {
             state.register.isFetching= false
             state.register.isError = true
+        },
+        translate: (state) => {
+            state.translate.isVietnamese = !state.translate.isVietnamese
         }
     }
 })
 
 
-export const { loginSuccess, loginStart, loginFailed, registerError, registerStart, registerSuccess } = authSlice.actions
+export const { loginSuccess, loginStart, loginFailed, registerError, registerStart, registerSuccess, translate } = authSlice.actions
 
 export default authSlice.reducer

@@ -3,10 +3,12 @@ import Introduction from "./home/Introduction";
 import Table from "./home/Table";
 import ChooseColor from "./home/ChooseColor";
 import According from "./home/According";
+import { useSelector } from "react-redux";
 
 type Props = {};
 
 const News = (props: Props) => {
+
   return (
     <div>
       <Introduction />

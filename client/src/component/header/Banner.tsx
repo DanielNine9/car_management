@@ -4,12 +4,16 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import { Product } from '../main/type';
 import { getBestSellingProduct } from '../../redux/apiRequest';
+import { useSelector } from 'react-redux';
 
 
 
 
 const Banner = () => {
   const [slideImages, setSlideImages] = useState<string[]>([])
+  const isVietnamese = useSelector(
+    (state: any) => state?.auth?.translate?.isVietnamese
+  );
 
   const getProducts = async () => {
     setTimeout(async () => {
@@ -49,11 +53,11 @@ const Banner = () => {
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="absolute inset-0 flex items-center justify-center text-white text-center z-10">
           <div>
-            <h1 className="text-4xl font-semibold mb-2">Welcome to Our Store</h1>
-            <p className="text-lg mb-4">Discover amazing products and deals</p>
-            <button className="px-6 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+            <h1 className="text-4xl font-semibold mb-2">{isVietnamese ? "Chào mừng đến cửa hàng của chúng tôi" : "Welcome to Our Store"}</h1>
+            <p className="text-lg mb-4">{isVietnamese ? "Khám phá các sản phẩm và ưu đãi tuyệt vời" : "Discover amazing products and deals"}</p>
+            {/* <button className="px-6 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
               Shop Now
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

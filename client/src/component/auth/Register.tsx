@@ -1,8 +1,12 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../axios'
+import { useSelector } from 'react-redux';
 
 const Register = () => {
+  const isVietnamese = useSelector(
+    (state: any) => state?.auth?.translate?.isVietnamese
+  );
   const [username, setUsername] = useState('');
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
@@ -69,10 +73,10 @@ const Register = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-1/3">
-        <h2 className="text-2xl font-semibold mb-4">Register</h2>
+        <h2 className="text-2xl font-semibold mb-4">{isVietnamese ? "Đăng ký tài khoản" : "Register"}</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <div className="mb-4">
-          <label className="block text-gray-600 mb-1">Username</label>
+          <label className="block text-gray-600 mb-1">{isVietnamese ? "Tên người dùng" : "Username"}</label>
           <input
             type="text"
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -81,7 +85,7 @@ const Register = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-600 mb-1">Address</label>
+          <label className="block text-gray-600 mb-1">{isVietnamese ? "Địa chỉ" : "Address"}</label>
           <input
             type="text"
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -99,7 +103,7 @@ const Register = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-600 mb-1">Password</label>
+          <label className="block text-gray-600 mb-1">{isVietnamese ? "Mật khẩu" : "Password"}</label>
           <input
             type="password"
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -108,7 +112,7 @@ const Register = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-600 mb-1">Confirm Password</label>
+          <label className="block text-gray-600 mb-1">{isVietnamese ? "Xác nhận mật khẩu" : "Confirm Password"}</label>
           <input
             type="password"
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -129,15 +133,15 @@ const Register = () => {
           className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full"
           onClick={handleRegister}
         >
-          Register
+          {isVietnamese ? "Đăng ký" : "Register"}
         </button>
         <div className="mt-4 text-sm text-gray-600">
-          Already have an account? <Link to="/login" className='text-blue-400 hover:text-blue-300'>Login here</Link>
+          {isVietnamese ? "Bạn đã có tài khoản?" : "Already have an account?"} <Link to="/login" className='text-blue-400 hover:text-blue-300'>{isVietnamese ? "Đăng nhập tại đây" : "Login here"}</Link>
         </div>
       </div>
       <Link to="/" className="absolute left-4 top-4">
         <button className="bg-gray-300 hover:bg-gray-400 text-gray-700 px-3 py-1 rounded">
-          Back to Home
+          {isVietnamese ? "Trở lại trang chủ" : "Back to Home"}
         </button>
       </Link>
     </div>

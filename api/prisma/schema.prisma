@@ -73,6 +73,7 @@ model Order {
   productId Int
   delete    Boolean
   quantity  Int
+  success Boolean
 
   user    User    @relation(fields: [userId], references: [id])
   product Product @relation(fields: [productId], references: [id])

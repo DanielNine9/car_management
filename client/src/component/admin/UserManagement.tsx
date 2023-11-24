@@ -10,6 +10,9 @@ interface updateUserType {
 }
 
 function UserManagement() {
+    const isVietnamese = useSelector(
+        (state: any) => state?.auth?.translate?.isVietnamese
+      );
     useEffect(() => {
         if (currentUser?.role !== "ADMIN") {
             navigate("/forbidden")
@@ -108,27 +111,27 @@ function UserManagement() {
 
     return (
         <div className="p-4">
-            <Link to="/">Home</Link>
-            <h2 className="text-2xl font-semibold mb-4">User Management</h2>
+            <Link to="/">{isVietnamese ? "Trang chủ" : "Home"}</Link>
+            <h2 className="text-2xl font-semibold mb-4">{isVietnamese ? "Quản lý người dùng" : "User Management"} </h2>
             <div className="flex gap-4">
                 <button className='text-xl text-black hover:text-white bg-green-400 px-2 py-1'>
-               Users
+              {isVietnamese ? "Người dùng" : " Users"}
                     </button>
                 <button className='text-xl text-black hover:text-white bg-green-400 px-2 py-1'>
-                <Link to="/my-sellers">Sellers</Link>
+                <Link to="/my-sellers">{isVietnamese ? "Nhân viên" : "Sellers"}</Link>
                     
                     </button>
             </div>
             <table className="w-full border-collapse">
                 <thead>
                     <tr>
-                        <th className="py-2 text-center">ID</th>
-                        <th className="py-2 text-center">Username</th>
-                        <th className="py-2 text-center">Email</th>
-                        <th className="py-2 text-center">Address</th>
-                        <th className="py-2 text-center">Role</th>
-                        <th className="py-2 text-center">Banned</th>
-                        <th className="py-2 text-center">Actions</th>
+                        <th className="py-2 text-center">{isVietnamese ? "ID" : "ID"}</th>
+                        <th className="py-2 text-center">{isVietnamese ? "Tên người dùng" : "Username"}</th>
+                        <th className="py-2 text-center">{isVietnamese ? "Email" : "Email"}</th>
+                        <th className="py-2 text-center">{isVietnamese ? "Địa chỉ" : "Address"}</th>
+                        <th className="py-2 text-center">{isVietnamese ? "Quyền" : "Role"}</th>
+                        <th className="py-2 text-center">{isVietnamese ? "Đã khóa" : "Banned"}</th>
+                        <th className="py-2 text-center">{isVietnamese ? "Hành động" : "Actions"}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -179,21 +182,21 @@ function UserManagement() {
                                         className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded"
                                         onClick={() => handleSaveUser(user.id)}
                                     >
-                                        Save
+                                        {isVietnamese ? "Lưu" : "Save"}
                                     </button>
                                 ) : (
                                     <button
                                         className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded"
                                         onClick={() => handleEditUser(user.id, user.role)}
                                     >
-                                        Edit
+                                        {isVietnamese ? "Sửa" : "Edit"}
                                     </button>
                                 )}
                                 <button
                                     className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded ml-2"
                                     onClick={() => handleDeleteUser(user.id)}
                                 >
-                                    Delete
+                                    {isVietnamese ? "Xóa" : "Delete"}
                                 </button>
                             </td>
                         </tr>
@@ -215,10 +218,10 @@ function UserManagement() {
             {isDeleteConfirmationOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
                     <div className="bg-white p-4 rounded shadow-md">
-                        <p className="text-lg font-semibold mb-2">Are you sure you want to delete this product?</p>
+                        <p className="text-lg font-semibold mb-2">{isVietnamese ? "Bạn có chắc muốn xóa user này không" : "Are you sure you want to ban this user?"} </p>
                         <div className="flex justify-between mt-4">
-                            <button className="px-4 py-1 bg-gray-400 text-white" onClick={() => cancelDelete()}>Cancel</button>
-                            <button className="px-4 py-1 bg-red-600 text-white" onClick={() => confirmDelete()}>Confirm</button>
+                            <button className="px-4 py-1 bg-gray-400 text-white" onClick={() => cancelDelete()}>{isVietnamese ? "Hủy bỏ" : "Cancel"}</button>
+                            <button className="px-4 py-1 bg-red-600 text-white" onClick={() => confirmDelete()}>{isVietnamese ? "Xác nhận" : "Confirm"}</button>
                         </div>
                     </div>
                 </div>

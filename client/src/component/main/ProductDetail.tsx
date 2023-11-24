@@ -38,6 +38,7 @@
 
 // export default ProductDetail;
 import React from 'react';
+import { useSelector } from 'react-redux';
 interface Product {
     id: number;
     name: string;
@@ -61,6 +62,9 @@ const productData: Product = {
 };
 
 const ProductDetail: React.FC = () => {
+    const isVietnamese = useSelector(
+        (state: any) => state?.auth?.translate?.isVietnamese
+      );
     return (
         <div className="container mx-auto p-4">
             <div className="bg-white rounded-lg shadow-md p-6">
@@ -70,12 +74,14 @@ const ProductDetail: React.FC = () => {
                     </div>
                     <div className="col-span-1">
                         <h1 className="text-2xl font-semibold mb-2">{productData.name}</h1>
-                        <p className="text-gray-600 mb-1">Type: {productData.type} seats</p>
-                        <p className="text-gray-600 mb-1">Local: {productData.local}</p>
+                        <p className="text-gray-600 mb-1">{isVietnamese ? "Loại xe": "Type"}: {productData.type} seats</p>
+                        <p className="text-gray-600 mb-1">{isVietnamese ? "Khu vực": "Local"}: {productData.local}</p>
                         <p className="text-xl font-semibold mb-4">${productData.price}</p>
                         <p className="text-gray-600 mb-4">{productData.source}</p>
-                        <p className="text-gray-600">Seller ID: {productData.sellerId}</p>
-                        <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Add to Cart</button>
+                        <p className="text-gray-600">{isVietnamese ? "Id người bán": "Seller Id"}: {productData.sellerId}</p>
+                        <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                        {isVietnamese ? "Thêm vào giỏ hàng": "Add to Cart"}
+                           </button>
                     </div>
                 </div>
             </div>

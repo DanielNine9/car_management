@@ -5,6 +5,9 @@ import { loginUser } from '../../redux/apiRequest';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
+  const isVietnamese = useSelector(
+    (state: any) => state?.auth?.translate?.isVietnamese
+  );
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -54,8 +57,8 @@ const Login = () => {
   if (isAuthenticated) {
     return (
       <div className="text-center">
-        Welcome, {email}! <br />
-        <Link to="/logout">Logout</Link>
+        {isVietnamese ? "Chào mừng": "Welcome"}, {email}! <br />
+        <Link to="/logout">{isVietnamese ? "Đăng xuất": "Logout"}</Link>
       </div>
     );
   }
@@ -63,10 +66,10 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-1/3">
-        <h2 className="text-2xl font-semibold mb-4">Login</h2>
+        <h2 className="text-2xl font-semibold mb-4">{isVietnamese ? "Đăng nhập": "Login"}</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <div className="mb-4">
-          <label className="block text-gray-600 mb-1">email</label>
+          <label className="block text-gray-600 mb-1">Email</label>
           <input
             type="text"
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -75,7 +78,7 @@ const Login = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-600 mb-1">Password</label>
+          <label className="block text-gray-600 mb-1">{isVietnamese ? "Mật khẩu": "Password"}</label>
           <input
             type="password"
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -84,21 +87,21 @@ const Login = () => {
           />
         </div>
         <div className="my-3 mt-[-10px] text-sm text-gray-600 text-right">
-          <Link to="/forgot-password" className='hover:opacity-80'>Forgot Password?</Link>
+          <Link to="/forgot-password" className='hover:opacity-80'>{isVietnamese ? "Quên mật khẩu": "Forgot Password?"}</Link>
         </div>
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full"
           onClick={handleLogin}
         >
-          Login
+         {isVietnamese ? "Đăng nhập": "Login"} 
         </button>
         <div className="mt-4 text-sm text-gray-600">
-          Don't have an account? <Link to="/register" className='text-blue-400 hover:text-blue-300'>Register here</Link>
+         {isVietnamese ? "Hiện chưa có tài khoản?": "Don't have an account?"}  <Link to="/register" className='text-blue-400 hover:text-blue-300'>{isVietnamese ? "Đăng ký tại đây": "Register here"}</Link>
         </div>
       </div>
       <Link to="/" className="absolute left-4 top-4">
         <button className="bg-gray-300 hover:bg-gray-400 text-gray-700 px-3 py-1 rounded">
-          Back to Home
+          {isVietnamese ? "Trở lại trang chủ" : "Back to Home"}
         </button>
       </Link>
     </div>

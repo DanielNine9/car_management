@@ -5,6 +5,9 @@ import { createProduct } from '../../redux/apiRequest';
 import { useSelector } from 'react-redux';
 
 const CreateProduct = () => {
+  const isVietnamese = useSelector(
+    (state: any) => state?.auth?.translate?.isVietnamese
+  );
   const navigate = useNavigate()
   const currentUser = useSelector((state: any) => state.auth.login?.currentUser)
 
@@ -46,10 +49,10 @@ const CreateProduct = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 py-10">
       <div className="bg-white p-8 rounded shadow-md w-1/2">
-        <h2 className="text-2xl font-semibold mb-4">Create Product</h2>
+        <h2 className="text-2xl font-semibold mb-4">{isVietnamese ? "Tạo sản phẩm" : "Create"} Product</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-600 mb-1">Name</label>
+            <label className="block text-gray-600 mb-1">{isVietnamese ? "Tên sản phẩm" : "Name"}</label>
             <input
               type="text"
               name="name"
@@ -59,7 +62,7 @@ const CreateProduct = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-600 mb-1">Price</label>
+            <label className="block text-gray-600 mb-1">{isVietnamese ? "Giá" : "Price"}</label>
             <input
               type="number"
               name="price"
@@ -70,7 +73,7 @@ const CreateProduct = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-600 mb-1">Source</label>
+            <label className="block text-gray-600 mb-1">{isVietnamese ? "Nguồn gốc" : "Source"}</label>
             <input
               type="text"
               name="source"
@@ -80,21 +83,21 @@ const CreateProduct = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-600 mb-1">Type</label>
+            <label className="block text-gray-600 mb-1">{isVietnamese ? "" : "Type"}</label>
             <select
               name="type"
               className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
               value={product.type}
               onChange={handleInputChange}
             >
-              <option value="two">Two seats</option>
-              <option value="four">Four seats</option>
-              <option value="seven">Seven seats</option>
-              <option value="five">Five seats</option>
+              <option value="two">{isVietnamese ? "2 chỗ" : "Two seats"} </option>
+              <option value="four">{isVietnamese ? "4 chỗ" : "Four seats"} </option>
+              <option value="seven">{isVietnamese ? "7 chỗ" : "Seven seats"} </option>
+              <option value="five">{isVietnamese ? "5 chỗ" : "Five seats"} </option>
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-600 mb-1">Description</label>
+            <label className="block text-gray-600 mb-1">{isVietnamese ? "" : "Description"}</label>
             <textarea
               name="desc"
               className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -103,7 +106,7 @@ const CreateProduct = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-600 mb-1">Discount</label>
+            <label className="block text-gray-600 mb-1">{isVietnamese ? "" : "Discount"}</label>
             <input
               type="number"
               name="discount"
@@ -113,7 +116,7 @@ const CreateProduct = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-600 mb-1">Image</label>
+            <label className="block text-gray-600 mb-1">{isVietnamese ? "" : "Image"}</label>
             <input
               type="text"
               name="image"
@@ -126,13 +129,13 @@ const CreateProduct = () => {
             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full"
             type="submit"
           >
-            Create
+            {isVietnamese ? "Tạo sản phẩm" : "Create"}
           </button>
         </form>
       </div>
       <Link to="/" className="absolute left-4 top-4">
         <button className="bg-gray-300 hover:bg-gray-400 text-gray-700 px-3 py-1 rounded">
-          Back to Home
+          {isVietnamese ? "Trở về trang chủ" : "Back to Home"} 
         </button>
       </Link>
     </div>

@@ -5,11 +5,15 @@ import { Product } from './type'
 import { getBestSellingProduct } from '../../redux/apiRequest';
 // import Loading from '../Loading';
 import Empty from './Empty';
+import { useSelector } from 'react-redux';
 
 
 const PhoneShop: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 5;
+  const isVietnamese = useSelector(
+    (state: any) => state?.auth?.translate?.isVietnamese
+  );
 
   const [products, setProducts] = useState<Product[]>([])
   // const [loading, setLoading] = useState<boolean>(false)
@@ -57,9 +61,9 @@ const PhoneShop: React.FC = () => {
   return (
     <div className="bg-[#f2f2f2]">
       <div className="container bg-white rounded-sm mx-auto p-4">
-        <h1 className="text-3xl font-semibold text-gray-800 mb-8">Top 10 best sellings products</h1>
+        <h1 className="text-3xl font-semibold text-gray-800 mb-8">{isVietnamese ? "Top 10 sản phẩm bán chạy": "Top 10 best sellings products"}</h1>
         <div className="bg-yellow-500 text-white py-2 px-4 rounded-md shadow-md mb-6 text-center">
-          <p className="text-lg">🔥 Hot Sale! Up to 50% off on selected items</p>
+          <p className="text-lg">🔥 {isVietnamese ? "Những sản phẩm thịnh hành nhất hiện tại": "The most popular products today"}</p>
         </div>
         {products.length === 0 ? (
           <Empty />
@@ -73,12 +77,13 @@ const PhoneShop: React.FC = () => {
             <div className="mt-8 flex justify-center space-x-4">
               {currentPage > 1 && (
                 <button onClick={prevPage} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
-                  Previous
+                  {isVietnamese ? "Trang trước": "Previous"}
+
                 </button>
               )}
               {currentPage < totalPages && (
                 <button onClick={nextPage} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
-                  Next
+                  {isVietnamese ? "Trang sau": "Next"}
                 </button>
               )}
             </div>

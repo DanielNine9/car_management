@@ -3,6 +3,7 @@ import Top from './Top';
 import Search from './Search';
 import Navbar from './Navbar';
 import Info from './Info';
+import Translate from './Translate';
 
 const Header = (): ReactElement => {
   return (
@@ -11,6 +12,7 @@ const Header = (): ReactElement => {
         <Info />
         <Top/>
         <Navbar />
+        <Translate/>
         {/* <Search /> */}
       </div>
     </div>

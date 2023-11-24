@@ -26,6 +26,9 @@ interface Product {
 }
 
 const MyProduct = () => {
+  const isVietnamese = useSelector(
+    (state: any) => state?.auth?.translate?.isVietnamese
+  );
   const currentUser = useSelector(
     (state: any) => state.auth.login?.currentUser
   );
@@ -40,6 +43,8 @@ const MyProduct = () => {
 
   const navigate = useNavigate();
   const handleMyProduct = async () => {
+
+
     setTimeout(async () => {
       try {
         setLoading(true);
@@ -167,7 +172,7 @@ const MyProduct = () => {
   return (
     <div className="container mx-auto mt-8 ">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-semibold mb-4">My Products</h2>
+        <h2 className="text-2xl font-semibold mb-4">{isVietnamese ? "Sản phẩm của tôi": "My Products"}</h2>
 
         <div className="flex gap-2">
           {selectedProductIds.length > 0 && (
@@ -175,7 +180,7 @@ const MyProduct = () => {
               onClick={handleDeleteSelectedProducts}
               className="px-4 py-1 bg-red-600 text-white"
             >
-              Delete Selected
+              {isVietnamese ? "Xóa những sản phẩm đã chọn": "Delete Selected"}
             </button>
           )}
           <Link
@@ -183,13 +188,13 @@ const MyProduct = () => {
             className="flex items-center gap-2 bg-green-500 text-black px-2 py-1 hover:bg-green-300"
           >
             <FontAwesomeIcon icon={faTrash} />
-            Products are deleted
+            {isVietnamese ? "Sản phẩm đã xóa": "Products are deleted"}
           </Link>
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {userProducts?.length === 0 ? (
-          <div className="min-h-[calc(22vh)]">My product is empty</div>
+          <div className="min-h-[calc(22vh)]">{isVietnamese ? "Chưa đăng sản phẩm nào": "My product is empty"}</div>
         ) : (
           userProducts?.map((product: any) => (
             <div key={product.id} className="bg-white p-4 rounded shadow-md">
@@ -201,15 +206,15 @@ const MyProduct = () => {
               />
               <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
 
-              <p className="text-gray-600 mb-2">Price: ${product.price}</p>
-              <p className="text-gray-600 mb-4">Type: {product.type}</p>
+              <p className="text-gray-600 mb-2">{isVietnamese ? "Giá": "Price"}: ${product.price}</p>
+              <p className="text-gray-600 mb-4">{isVietnamese ? "Kiểu": "Type"}: {product.type}</p>
               <p className="text-gray-600">
-                Description:{" "}
+                {isVietnamese ? "Mô tả": "Description"}:{" "}
                 {product.desc.length >= 20
                   ? product.desc.slice(0, 20) + "..."
                   : product.desc}
               </p>
-              <p className="text-gray-600">Discount: {product.discount}%</p>
+              <p className="text-gray-600">{isVietnamese ? "": ""}Discount: {product.discount}%</p>
               <img
                 src={product.imageURL}
                 alt={product.name}
@@ -220,14 +225,14 @@ const MyProduct = () => {
                   className="px-4 py-1 bg-red-600 text-white"
                   onClick={() => handleDelete(product.id)}
                 >
-                  Delete
+                  {isVietnamese ? "Xóa": "Delete"}
                 </button>
 
                 <button
                   className="px-4 py-1 bg-blue-400 text-white"
                   onClick={() => handleEdit(product)}
                 >
-                  Edit
+                  {isVietnamese ? "Chỉnh sửa": "Edit"}
                 </button>
               </div>
             </div>
@@ -239,20 +244,20 @@ const MyProduct = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
           <div className="bg-white p-4 rounded shadow-md">
             <p className="text-lg font-semibold mb-2">
-              Are you sure you want to delete this product?
+              {isVietnamese ? "Bạn có chắc muốn xóa sản phẩm này": "Are you sure you want to delete this product?"}
             </p>
             <div className="flex justify-between mt-4">
               <button
                 className="px-4 py-1 bg-gray-400 text-white"
                 onClick={cancelDelete}
               >
-                Cancel
+               {isVietnamese ? "Hủy": "Cancel"} 
               </button>
               <button
                 className="px-4 py-1 bg-red-600 text-white"
                 onClick={confirmDelete}
               >
-                Confirm
+                {isVietnamese ? "Đồng ý": "Confirm"}
               </button>
             </div>
           </div>
@@ -261,9 +266,9 @@ const MyProduct = () => {
       {editOverlay && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 ">
           <div className="bg-white p-4 rounded shadow-md w-2/3 overflow-y-scroll h-full">
-            <h2 className="text-lg font-semibold mb-4">Edit Product</h2>
-            <div className="mb-4">
-              <label className="block text-gray-600 mb-1">Name</label>
+            <h2 className="text-lg font-semibold mb-4">{isVietnamese ? "Chỉnh sửa sản phẩm": "Edit Product"}</h2>
+            <div className="mb-4">{isVietnamese ? "": ""}
+              <label className="block text-gray-600 mb-1">{isVietnamese ? "Tên sản phẩm": "Name"}</label>
               <input
                 type="text"
                 name="name"
@@ -273,7 +278,7 @@ const MyProduct = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-600 mb-1">Price</label>
+              <label className="block text-gray-600 mb-1">{isVietnamese ? "Giá sản phẩm": "Price"}</label>
               <input
                 type="number"
                 name="price"
@@ -285,7 +290,7 @@ const MyProduct = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-600 mb-1">Source</label>
+              <label className="block text-gray-600 mb-1">{isVietnamese ? "Nguồn gốc": "Source"}</label>
               <input
                 type="text"
                 name="source"
@@ -295,22 +300,22 @@ const MyProduct = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-600 mb-1">Type</label>
+              <label className="block text-gray-600 mb-1">{isVietnamese ? "Loại xe": "Type"}</label>
               <select
                 name="type"
                 className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
                 value={editProduct.type}
                 onChange={handleInputChange}
               >
-                <option value="two">Two seats</option>
-                <option value="four">Four seats</option>
-                <option value="seven">Seven seats</option>
-                <option value="five">Five seats</option>
+                <option value="two">{isVietnamese ? "2 chỗ": "Two seats"}</option>
+                <option value="four">{isVietnamese ? "4 chỗ": "Four seats"}</option>
+                <option value="seven">{isVietnamese ? "7 chỗ": "Seven seats"}</option>
+                <option value="five">{isVietnamese ? "5 chỗ": "Five seats"}</option>
                 {/* ... thêm các tùy chọn khác */}
               </select>
             </div>
             <div className="mb-4">
-              <label className="block text-gray-600 mb-1">Description</label>
+              <label className="block text-gray-600 mb-1">{isVietnamese ? "Mô tả": "Description"}</label>
               <textarea
                 name="desc"
                 className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -319,7 +324,7 @@ const MyProduct = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-600 mb-1">Discount</label>
+              <label className="block text-gray-600 mb-1">{isVietnamese ? "Giảm giá": "Discount"}</label>
               <input
                 type="number"
                 name="discount"
@@ -333,7 +338,7 @@ const MyProduct = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-600 mb-1">Image</label>
+              <label className="block text-gray-600 mb-1">{isVietnamese ? "Hình ảnh": "Image"}</label>
               <input
                 type="text"
                 name="imageURL"
@@ -359,13 +364,13 @@ const MyProduct = () => {
                 className="bg-gray-400 text-white px-4 py-1 rounded hover:bg-gray-500"
                 onClick={handleCancel}
               >
-                Cancel
+                {isVietnamese ? "Hủy bỏ": "Cancel"}
               </button>
               <button
                 className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
                 onClick={handleSave}
               >
-                Save
+                {isVietnamese ? "Lưu": "Save"}
               </button>
             </div>
           </div>

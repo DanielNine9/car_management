@@ -12,12 +12,8 @@ import { join } from 'path';
 
 @Module({
   imports: [AuthModule, PrismaModule, ConfigModule.forRoot({isGlobal : true}),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, "../..", 'api', 'dist'),
-      exclude: ['api/*']
-
-    })
-    ,UserModule, ProductModule, OrderModule],
+  
+    UserModule, ProductModule, OrderModule],
   providers: [
     {
       provide: APP_GUARD,

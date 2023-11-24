@@ -4,9 +4,14 @@ import { Product } from './type'
 import { getBestDiscountProduct } from '../../redux/apiRequest';
 // import Loading from '../Loading';
 import Empty from './Empty';
+import { useSelector } from 'react-redux';
 
 
 const Discount: React.FC = () => {
+  const isVietnamese = useSelector(
+    (state: any) => state?.auth?.translate?.isVietnamese
+  );
+
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 5;
   const [products, setProducts] = useState<Product[]>([])
@@ -55,9 +60,9 @@ const Discount: React.FC = () => {
   return (
     <div className="bg-[#f2f2f2]">
       <div className="container bg-white rounded-sm mx-auto p-4">
-        <h1 className="text-3xl font-semibold text-gray-800 mb-8">Top 10 Most Discounted Products</h1>
+        <h1 className="text-3xl font-semibold text-gray-800 mb-8">{isVietnamese ? "Top 10 sản phẩm giảm giá nhiều nhất": "Top 10 Most Discounted Products"}</h1>
         <div className="bg-yellow-500 text-white py-2 px-4 rounded-md shadow-md mb-6 text-center">
-          <p className="text-lg">🔥 Special Offer! Up to 50% off on selected items</p>
+          <p className="text-lg">🔥 {isVietnamese ? "Giảm tới 50% cho các mặt hàng được chọn": "Special Offer! Up to 50% off on selected items"}</p>
         </div>
         {products.length === 0 ? (
           <Empty />
@@ -71,12 +76,12 @@ const Discount: React.FC = () => {
             <div className="mt-8 flex justify-center space-x-4">
               {currentPage > 1 && (
                 <button onClick={prevPage} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
-                  Previous Page
+                  {isVietnamese ? "Trang trước": "Previous Page"}
                 </button>
               )}
               {currentPage < totalPages && (
                 <button onClick={nextPage} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
-                  Next Page
+                  {isVietnamese ? "Trang sau": "Next Page"}
                 </button>
               )}
             </div>

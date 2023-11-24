@@ -16,6 +16,7 @@ import { RoleGuard } from '../common/guard/role';
 import { UserUpdateDTO } from './dto/user.dto';
 import { User } from '../common/decorator/userInfo.decorator';
 import { Public } from '../common/decorator';
+import { SourceTextModule } from 'vm';
 
 @Controller('user')
 export class UserController {
@@ -25,6 +26,19 @@ export class UserController {
   getSellers() {
     return this.userService.getSellers();
   }
+
+  @Get('/my-customer')
+  // @UseGuards(RoleGuard)
+  getCustomer(@User() user) {
+    return this.userService.getCustomer(user.id);
+  }
+
+  @Get('/my-customer-admin')
+  // @UseGuards(RoleGuard)
+  getCustomerAdmin() {
+    return this.userService.getCustomerAdmin();
+  }
+
 
   @Get()
   @UseGuards(RoleGuard)

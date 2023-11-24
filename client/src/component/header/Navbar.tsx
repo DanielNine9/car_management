@@ -1,7 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const isVietnamese = useSelector(
+    (state: any) => state?.auth?.translate?.isVietnamese
+  );
   return (
     <nav className="bg-gray-900">
       <div className="container mx-auto px-4">
@@ -18,7 +22,7 @@ const Navbar = () => {
                 to="/news"
                 className="text-white hover:text-gray-300 transition"
               >
-                News
+               {isVietnamese ? "Tin tức": "News"} 
               </Link>
             </li>
             <li>
@@ -26,7 +30,8 @@ const Navbar = () => {
                 to="/"
                 className="text-white hover:text-gray-300 transition"
               >
-                Home
+                {isVietnamese ? "Trang chủ": "Home"} 
+                
               </Link>
             </li>
             <li>
@@ -34,7 +39,7 @@ const Navbar = () => {
                 to="/hot"
                 className="text-white hover:text-gray-300 transition"
               >
-                Hot
+                {isVietnamese ? "Sản phẩm bán chạy": "Hot"} 
               </Link>
             </li>
             <li>
@@ -42,7 +47,7 @@ const Navbar = () => {
                 to="/contact"
                 className="text-white hover:text-gray-300 transition"
               >
-                Contact Us
+                {isVietnamese ? "Liên hệ chúng tôi": "Contact Us"} 
               </Link>
             </li>
             <li>
@@ -50,7 +55,7 @@ const Navbar = () => {
                 to="/feedback"
                 className="text-white hover:text-gray-300 transition"
               >
-                Feedback
+                {isVietnamese ? "Nhận xét": "Feedback"} 
               </Link>
             </li>
           </ul>
