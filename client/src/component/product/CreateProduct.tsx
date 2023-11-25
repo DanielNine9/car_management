@@ -10,6 +10,7 @@ const CreateProduct = () => {
   );
   const navigate = useNavigate()
   const currentUser = useSelector((state: any) => state.auth.login?.currentUser)
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!currentUser) {
@@ -38,7 +39,16 @@ const CreateProduct = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    if(product.discount < 0 || product.price < 0){
+      var mess = isVietnamese ? "Giá hoặc giá giảm không được < 0" : "Price or discount are not negative number"
+      setError(mess)
+      return;
+    }
+    if(product.discount > 1){
+      var mess = isVietnamese ? "Giá giảm không được vượt quá 1" : "The discount cannot exceed 1"
+      setError(mess)
+      return;
+    }
     try {
       createProduct(product, currentUser.access_token, navigate) // Gửi dữ liệu thông qua POST request
     } catch (error) {
@@ -49,6 +59,7 @@ const CreateProduct = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 py-10">
       <div className="bg-white p-8 rounded shadow-md w-1/2">
+      <div className='text-red-500 text-xl'> {error}</div>
         <h2 className="text-2xl font-semibold mb-4">{isVietnamese ? "Tạo sản phẩm" : "Create"} Product</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
