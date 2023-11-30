@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 
 const instance = axios.create({
     // baseURL: 'http://localhost:3000/',
-    baseURL: 'https://car-manager-backend-ai3i.onrender.com/',
+    
+    // baseURL: 'https://car-manager-backend-ai3i.onrender.com/',
+    baseURL: 'http://localhost:3000/',
 
 });
 // instance.interceptors.request.use((config) => {
@@ -12,7 +14,7 @@ const instance = axios.create({
 //         // Nếu có access token, thêm vào header của request
 //         config.headers.Authorization = `Bearer ${accessToken}`;
 //     }
-//     return accessToken
+//     return accessToken`  
 // })
 
 

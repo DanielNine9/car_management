@@ -41,6 +41,7 @@ export class OrderService {
                     productId,
                     quantity,
                     delete: false,
+                    success: false
                 },
             });
         }
@@ -120,12 +121,13 @@ export class OrderService {
     }
 
     async total(user) {
+        console.log("userid "+ user.id)
         const orders: { quantity: number, price: number }[] = await this.prismaService.$queryRaw`
             SELECT "a"."quantity", "b"."price"
             FROM "orders" "a"
             INNER JOIN "products" "b" ON "a"."productId" = "b"."id"
             WHERE "a"."userId" = ${user.id}
-            AND "a"."success" = false
+            AND "a"."success" != true
         `;
         const totalAmount = orders.reduce((total, order) => {
             const orderTotal = order.quantity * order.price;

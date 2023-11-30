@@ -16,6 +16,7 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
   @Get('total')
   total(@User() user) {
+    console.log(user)
     return this.orderService.total(user);
   }
   @Get('/cart')
