@@ -31,12 +31,14 @@ const Login = () => {
   }
 
   const handleLogin = async () => {
-    console.log("bam vao")
     setLoading(true)
     loginUser({ email, password }, dispatch).then((res: any) => {
       if (res?.message) {
         setLoading(false)
-        console.log(res.response.data.message)
+        if(res.response.data.message == "Account is banned" && isVietnamese){
+          setError("Tài khoản này đã bị khóa")
+          return
+        }
         setError(res.response.data.message)
       } else {
         navigate(prePath || '/')

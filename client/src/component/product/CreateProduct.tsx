@@ -39,13 +39,23 @@ const CreateProduct = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(product.discount < 0 || product.price < 0){
+    if (product.name == "") {
+      var mess = isVietnamese ? "Tên không được bỏ trống" : "Name is not empty"
+      setError(mess)
+      return;
+    }
+    if (product.discount < 0 || product.price < 0) {
       var mess = isVietnamese ? "Giá hoặc giá giảm không được < 0" : "Price or discount are not negative number"
       setError(mess)
       return;
     }
-    if(product.discount > 1){
+    if (product.discount > 1) {
       var mess = isVietnamese ? "Giá giảm không được vượt quá 1" : "The discount cannot exceed 1"
+      setError(mess)
+      return;
+    }
+    if (product.image == "") {
+      var mess = isVietnamese ? "Vui lòng nhập link ảnh" : "Please, enter the link of image"
       setError(mess)
       return;
     }
@@ -59,7 +69,7 @@ const CreateProduct = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 py-10">
       <div className="bg-white p-8 rounded shadow-md w-1/2">
-      <div className='text-red-500 text-xl'> {error}</div>
+        <div className='text-red-500 text-xl'> {error}</div>
         <h2 className="text-2xl font-semibold mb-4">{isVietnamese ? "Tạo sản phẩm" : "Create"} Product</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -146,7 +156,7 @@ const CreateProduct = () => {
       </div>
       <Link to="/" className="absolute left-4 top-4">
         <button className="bg-gray-300 hover:bg-gray-400 text-gray-700 px-3 py-1 rounded">
-          {isVietnamese ? "Trở về trang chủ" : "Back to Home"} 
+          {isVietnamese ? "Trở về trang chủ" : "Back to Home"}
         </button>
       </Link>
     </div>

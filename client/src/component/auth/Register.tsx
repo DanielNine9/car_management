@@ -25,7 +25,12 @@ const Register = () => {
       setError('Passwords do not match.');
     } else {
       setError('');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+      if (!emailRegex.test(email)) {
+        setError('Invalid email address.');
+        return;
+      }
       try {
         const response = await axios.post('/auth/register', { email, password, address });
         if (response) {
@@ -34,8 +39,9 @@ const Register = () => {
         } else {
           setError('Registration failed.');
         }
-      } catch (error) {
-        setError('An error occurred during registration.');
+      } catch (error: any) {
+        console.log(error.response.data.message)
+        setError(error.response.data.message);
       }
     }
   };
