@@ -31,12 +31,29 @@ const Login = () => {
   }
 
   const handleLogin = async () => {
+    if(email == "" || password == ""){
+      if(isVietnamese){
+        setError("Vui lòng nhập đầy đủ các trường")
+      }else {
+        setError("Plese, fill all fields")
+      }
+      return
+
+    }
     setLoading(true)
     loginUser({ email, password }, dispatch).then((res: any) => {
       if (res?.message) {
         setLoading(false)
         if(res.response.data.message == "Account is banned" && isVietnamese){
           setError("Tài khoản này đã bị khóa")
+          return
+        }
+        if(res.response.data.message == "email must be an email" && isVietnamese){
+          setError("Email phải đúng định dạng")
+          return
+        }
+        if(res.response.data.message == "User or password aren't correct" && isVietnamese){
+          setError("Tài khoản hoặc mật khẩu không chính xác")
           return
         }
         setError(res.response.data.message)

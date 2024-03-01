@@ -18,17 +18,31 @@ const Register = () => {
 
   const handleRegister = async () => {
     if (username === '' || address === '' || email === '' || password === '') {
-      setError('All fields are required');
+      if (isVietnamese) {
+        setError("Vui lòng nhập đủ các trường")
+      } else {
+        setError('All fields are required');
+
+      }
       return
     }
     if (password !== confirmPassword) {
-      setError('Passwords do not match.');
+      if (isVietnamese) {
+        setError("Xác nhận mật khẩu phải khớp với mật khẩu")
+      }else {
+        setError('Passwords do not match.');
+      }
+      return
     } else {
       setError('');
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       if (!emailRegex.test(email)) {
-        setError('Invalid email address.');
+        if (isVietnamese) {
+          setError('Phải đúng định dạng email')
+        } else {
+          setError('Invalid email address.');
+        }
         return;
       }
       try {
@@ -40,6 +54,12 @@ const Register = () => {
           setError('Registration failed.');
         }
       } catch (error: any) {
+        if(error.response.data.message == "Email is already taken"){
+          if(isVietnamese){
+            setError("Email đã được sử dụng")
+            return
+          }
+        }
         console.log(error.response.data.message)
         setError(error.response.data.message);
       }

@@ -44,6 +44,20 @@ const CreateProduct = () => {
       setError(mess)
       return;
     }
+
+    if (product.price != undefined && product.price == 0) {
+      var mess = isVietnamese ? "Giá không được bỏ trống" : "Price is not empty"
+      setError(mess)
+      return;
+    }
+
+    if (product.source === "") {
+      const mess = isVietnamese ? "Nguồn gốc không được bỏ trống" : "Source cannot be empty";
+      setError(mess);
+      return;
+    }
+
+
     if (product.discount < 0 || product.price < 0) {
       var mess = isVietnamese ? "Giá hoặc giá giảm không được < 0" : "Price or discount are not negative number"
       setError(mess)
@@ -56,6 +70,11 @@ const CreateProduct = () => {
     }
     if (product.image == "") {
       var mess = isVietnamese ? "Vui lòng nhập link ảnh" : "Please, enter the link of image"
+      setError(mess)
+      return;
+    }
+    if (product.desc == "") {
+      var mess = isVietnamese ? "Vui lòng nhập mô tả chỏ sản phẩm" : "Description can not empty"
       setError(mess)
       return;
     }
@@ -104,7 +123,7 @@ const CreateProduct = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-600 mb-1">{isVietnamese ? "" : "Type"}</label>
+            <label className="block text-gray-600 mb-1">{isVietnamese ? "Kiểu" : "Type"}</label>
             <select
               name="type"
               className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -118,7 +137,7 @@ const CreateProduct = () => {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-600 mb-1">{isVietnamese ? "" : "Description"}</label>
+            <label className="block text-gray-600 mb-1">{isVietnamese ? "Mô tả" : "Description"}</label>
             <textarea
               name="desc"
               className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -127,7 +146,7 @@ const CreateProduct = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-600 mb-1">{isVietnamese ? "" : "Discount"}</label>
+            <label className="block text-gray-600 mb-1">{isVietnamese ? "Giảm giá" : "Discount"}</label>
             <input
               type="number"
               name="discount"
@@ -137,7 +156,7 @@ const CreateProduct = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-600 mb-1">{isVietnamese ? "" : "Image"}</label>
+            <label className="block text-gray-600 mb-1">{isVietnamese ? "Hình ảnh" : "Image"}</label>
             <input
               type="text"
               name="image"
